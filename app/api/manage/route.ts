@@ -7,7 +7,7 @@ export async function POST(req:Request){try{
  else if(b.action==='project')await db().prepare('INSERT INTO projects(id,branch_id,name,location) VALUES(?,?,?,?)').bind(id,txt(b.branchId),txt(b.name),txt(b.location)).run();
  else if(b.action==='member'){
   if(!m.is_owner)throw new Error('403|Solo la cuenta propietaria puede crear o editar usuarios.');
-  const email=txt(b.email).toLowerCase(),username=txt(b.username,40).toLowerCase(),name=txt(b.name),newPassword=typeof b.password==='string'?b.password:'';
+  const email=txt(b.email).toLowerCase(),username=txt(b.username,80).toLowerCase(),name=txt(b.name),newPassword=typeof b.password==='string'?b.password:'';
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||!validUsername(username)||!['secretaria','vendedor'].includes(b.role))throw new Error('400|Revisa el correo, el usuario y el rol.');
   const existing=await db().prepare('SELECT email,is_owner FROM members WHERE email=?').bind(email).first<any>();
   if(existing?.is_owner)throw new Error('403|La cuenta propietaria no se modifica desde este formulario.');

@@ -7,7 +7,7 @@ function bytesToBase64(bytes:Uint8Array){let raw='';for(const b of bytes)raw+=St
 function base64ToBytes(value:string){const normalized=value.replaceAll('-','+').replaceAll('_','/');const raw=atob(normalized+'='.repeat((4-normalized.length%4)%4));return Uint8Array.from(raw,c=>c.charCodeAt(0))}
 async function digest(value:string){return bytesToBase64(new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(value))))}
 
-export function validUsername(value:unknown){return typeof value==='string'&&/^[a-zA-Z0-9._-]{3,40}$/.test(value.trim())}
+export function validUsername(value:unknown){if(typeof value!=='string')return false;const username=value.trim();return username.length>=2&&username.length<=80&&!/[\u0000-\u001f\u007f]/.test(username)}
 export function validPassword(value:unknown){return typeof value==='string'&&value.length>=10&&value.length<=128}
 
 export async function passwordRecord(password:string,saltValue?:string){

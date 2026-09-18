@@ -4,7 +4,7 @@ import {passwordRecord,validPassword,validUsername,issueSession,setSessionCookie
 export async function POST(req:Request){try{
  mutation(req);const input:any=await req.json();if(!validUsername(input.username)||!validPassword(input.password))throw new Error('400|Usa un usuario de 2 a 80 caracteres y una contraseña de al menos 10 caracteres.');
  const exists=await db().prepare("SELECT 1 ready FROM members WHERE is_owner=1 AND password_hash IS NOT NULL LIMIT 1").first();if(exists)throw new Error('409|La cuenta propietaria ya fue configurada.');
- const user=await identity(),username=txt(input.username,80).toLowerCase(),record=await passwordRecord(input.password);const taken=await db().prepare('SELECT email FROM members WHERE username=?').bind(username).first();if(taken)throw new Error('409|Ese usuario ya está en uso.');
+ const user=await identity(req),username=txt(input.username,80).toLowerCase(),record=await passwordRecord(input.password);const taken=await db().prepare('SELECT email FROM members WHERE username=?').bind(username).first();if(taken)throw new Error('409|Ese usuario ya está en uso.');
  await db().batch([
   db().prepare('UPDATE members SET is_owner=0'),
   db().prepare(`INSERT INTO members(email,name,role,branch_id,username,password_hash,password_salt,is_owner) VALUES(?,?,?,NULL,?,?,?,1)

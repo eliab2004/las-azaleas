@@ -1,9 +1,13 @@
 import {env} from 'cloudflare:workers';
-import {getChatGPTUser} from '../app/chatgpt-auth';
 import {sessionMember} from './auth';
 export const db=()=> (env as unknown as {DB:D1Database}).DB;
 export const bucket=()=> (env as unknown as {BUCKET:R2Bucket}).BUCKET;
-export async function identity(){const u=await getChatGPTUser();if(!u)throw new Error('401|Inicia sesión para continuar.');return u;}
+export async function identity(req:Request){
+ const userId=req.headers.get('oai-authenticated-user-id'),email=req.headers.get('oai-authenticated-user-email');if(!userId||!email)throw new Error('401|Inicia sesión para continuar.');
+ const encodedName=req.headers.get('oai-authenticated-user-full-name'),encoded=req.headers.get('oai-authenticated-user-full-name-encoding')==='percent-encoded-utf-8';let fullName:string|null=null;
+ if(encodedName)try{fullName=encoded?decodeURIComponent(encodedName):encodedName}catch{}
+ return {userId,email,displayName:fullName||email,fullName};
+}
 export async function member(req:Request){return sessionMember(req);}
 export function role(m:any,...roles:string[]){if(!roles.includes(m.role))throw new Error('403|No tienes permiso para esta acción.');}
 export async function project(m:any,id:string){const p=await db().prepare('SELECT * FROM projects WHERE id=?').bind(id).first<any>();if(!p)throw new Error('404|Lotificación no encontrada.');if((m.role==='vendedor'||m.role==='asesor')&&m.branch_id!==p.branch_id)throw new Error('403|Esta lotificación pertenece a otra sucursal.');return p;}

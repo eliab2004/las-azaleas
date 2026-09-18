@@ -1,0 +1,7 @@
+
+import {sqliteTable,text,real,uniqueIndex} from 'drizzle-orm/sqlite-core';
+export const branches=sqliteTable('branches',{id:text('id').primaryKey(),name:text('name').notNull()});
+export const members=sqliteTable('members',{email:text('email').primaryKey(),name:text('name').notNull(),role:text('role').notNull(),branchId:text('branch_id').references(()=>branches.id)});
+export const projects=sqliteTable('projects',{id:text('id').primaryKey(),branchId:text('branch_id').notNull().references(()=>branches.id),name:text('name').notNull(),location:text('location').notNull(),mapKey:text('map_key'),mapAsset:text('map_asset'),mapHeight:real('map_height').notNull().default(650)});
+export const lots=sqliteTable('lots',{id:text('id').primaryKey(),projectId:text('project_id').notNull().references(()=>projects.id),code:text('code').notNull(),area:real('area').notNull(),price:real('price').notNull(),points:text('points').notNull(),status:text('status').notNull().default('libre'),block:text('block'),source:text('source'),reviewReason:text('review_reason')},t=>[uniqueIndex('lots_project_code').on(t.projectId,t.code)]);
+export const reservations=sqliteTable('reservations',{id:text('id').primaryKey(),lotId:text('lot_id').notNull().unique().references(()=>lots.id),name:text('name').notNull(),dpi:text('dpi').notNull(),phone:text('phone').notNull(),address:text('address').notNull(),front:text('front').notNull(),back:text('back').notNull(),createdBy:text('created_by').notNull(),createdAt:text('created_at').notNull(),details:text('details')});

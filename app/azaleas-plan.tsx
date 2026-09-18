@@ -10,23 +10,23 @@ export default function AzaleasPlan({layer}:{layer:Layer}){
   <path className="road" d="M1182 210L1245 216L1201 418L1164 413Z"/>
   <path className="future-entry" d="M244 30L312 38L304 108L235 100Z"/>
   <path className="well" d="M810 96L878 105L869 176L801 167Z"/>
-  <path className="park" d="M902 404L1032 420Q1092 426 1090 469Q1087 488 1069 509L1022 551L895 534Z"/>
-  <path className="entrance" d="M1143 423L1234 433Q1262 436 1268 458Q1269 471 1254 487L1216 510L1116 480Z"/>
-  <path className="access-road" d="M1391 131Q1359 219 1325 296T1231 583"/>
-  <path className="block-guide" d="M107 12L1195 155L1189 225L93 86Z"/>
-  <path className="block-guide" d="M201 129L1097 243L1085 386L191 272Z"/>
-  <path className="block-guide" d="M199 301L913 391L895 535L182 444Z"/>
-  <path className="block-guide" d="M116 117L77 446L155 457L191 128Z"/>
-  <path className="block-guide" d="M1088 421L1008 543L1068 582L1158 435Z"/>
-  <path className="block-guide" d="M1148 456L1068 582L1154 604L1251 501Z"/>
- </g>;
- return <g className="azaleas-plan plan-labels" transform="scale(.6097560976)" aria-hidden="true">
-  <g className="amenity-label"><text x="274" y="62">FUTURA</text><text x="274" y="83">ENTRADA</text></g>
-  <text className="amenity-title" x="839" y="139">POZO</text>
-  <text className="amenity-title" x="971" y="477">PARQUE</text>
-  <text className="amenity-title entrance-title" x="1193" y="463">ENTRADA</text>
-  <text className="road-name" x="585" y="122">CALLE PRINCIPAL</text>
-  <text className="road-name" x="590" y="320">CALLE INTERIOR</text>
+<path className="park" d="M885 394L938 406Q950 410 950 438Q948 494 947 518Q946 528 936 524L896 522Q885 520 885 502L885 428Q885 402 885 394Z"/>
+    <path className="entrance" d="M1162 421L1246 424L1224 448L1162 446Z"/>
+    <path className="access-road" d="M1391 131Q1359 219 1325 296T1231 583"/>
+    <path className="block-guide" d="M107 12L1195 155L1189 225L93 86Z"/>
+   <path className="block-guide" d="M201 129L1097 243L1085 386L191 272Z"/>
+   <path className="block-guide" d="M199 301L913 391L895 535L182 444Z"/>
+   <path className="block-guide" d="M116 117L77 446L155 457L191 128Z"/>
+   <path className="block-guide" d="M1088 421L1008 543L1068 582L1158 435Z"/>
+   <path className="block-guide" d="M1148 456L1068 582L1154 604L1251 501Z"/>
+  </g>;
+  return <g className="azaleas-plan plan-labels" transform="scale(.6097560976)" aria-hidden="true">
+   <g className="amenity-label"><text x="274" y="62">FUTURA</text><text x="274" y="83">ENTRADA</text></g>
+<text className="amenity-title" x="839" y="139">POZO</text>
+    <text className="amenity-title" x="918" y="472">PARQUE</text>
+    <text className="amenity-title entrance-title" x="1204" y="426">ENTRADA</text>
+   <text className="road-name" x="585" y="122">CALLE PRINCIPAL</text>
+   <text className="road-name" x="590" y="320">CALLE INTERIOR</text>
   <g className="block-marker" transform="translate(640 78)"><circle r="23"/><text y="8">A</text></g>
   <g className="block-marker" transform="translate(118 272)"><circle r="23"/><text y="8">B</text></g>
   <g className="block-marker" transform="translate(570 245)"><circle r="23"/><text y="8">D</text></g>

@@ -3,7 +3,7 @@ import "./globals.css";
 import "./terralote.css";
 
 export const metadata: Metadata = {
-  title: "TerraLote · Control de lotificaciones",
+  title: "Las Azaleas · Control de lotificaciones",
   description: "Disponibilidad, reservaciones y expedientes con acceso por roles.",
   other: {
     "codex-preview": "development",

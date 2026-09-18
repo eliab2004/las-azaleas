@@ -11,7 +11,7 @@ function pngData(value:FormDataEntryValue|null){
 }
 
 export async function POST(req:Request){try{
- mutation(req);const m=await member();role(m,'vendedor','asesor','secretaria');const f=await req.formData();
+ mutation(req);const m=await member(req);role(m,'vendedor','asesor','secretaria');const f=await req.formData();
  const lotId=txt(f.get('lotId'));const l=await db().prepare('SELECT l.*,p.name project_name FROM lots l JOIN projects p ON p.id=l.project_id WHERE l.id=?').bind(lotId).first<any>();
  if(!l)throw new Error('404|Lote no encontrado.');await project(m,l.project_id);if(l.status!=='libre')throw new Error('409|Este lote ya no está disponible.');
  const input=Object.fromEntries([...f.entries()].filter(([,v])=>typeof v==='string')) as Record<string,string>;

@@ -2,37 +2,56 @@ type Layer='base'|'labels';
 
 export default function AzaleasPlan({layer}:{layer:Layer}){
  if(layer==='base')return <g className="azaleas-plan plan-base" transform="scale(.6097560976)" aria-hidden="true">
-  <path className="site-boundary" d="M70 8L1380 153L1395 195L1304 386L1260 416L1079 604L1008 586L895 548L188 458L153 457L75 447L58 417L105 12Z"/>
-  <path className="road" d="M92 91L1195 209L1190 244L88 127Z"/>
-  <path className="road" d="M190 274L1100 389L1088 420L184 305Z"/>
-  <path className="road" d="M82 104L203 118L196 151L79 138Z"/>
-  <path className="road" d="M1055 387L1111 393L1073 452L1032 447Z"/>
-  <path className="road" d="M1182 210L1245 216L1201 418L1164 413Z"/>
-  <path className="future-entry" d="M244 30L312 38L304 108L235 100Z"/>
-  <path className="well" d="M810 96L878 105L869 176L801 167Z"/>
-<path className="park" d="M885 394L938 406Q950 410 950 438Q948 494 947 518Q946 528 936 524L896 522Q885 520 885 502L885 428Q885 402 885 394Z"/>
-    <path className="entrance" d="M1162 421L1246 424L1224 448L1162 446Z"/>
-    <path className="access-road" d="M1391 131Q1359 219 1325 296T1231 583"/>
-    <path className="block-guide" d="M107 12L1195 155L1189 225L93 86Z"/>
-   <path className="block-guide" d="M201 129L1097 243L1085 386L191 272Z"/>
-   <path className="block-guide" d="M199 301L913 391L895 535L182 444Z"/>
-   <path className="block-guide" d="M116 117L77 446L155 457L191 128Z"/>
-   <path className="block-guide" d="M1088 421L1008 543L1068 582L1158 435Z"/>
-   <path className="block-guide" d="M1148 456L1068 582L1154 604L1251 501Z"/>
-  </g>;
-  return <g className="azaleas-plan plan-labels" transform="scale(.6097560976)" aria-hidden="true">
-   <g className="amenity-label"><text x="274" y="62">FUTURA</text><text x="274" y="83">ENTRADA</text></g>
-<text className="amenity-title" x="839" y="139">POZO</text>
-    <text className="amenity-title" x="918" y="472">PARQUE</text>
-    <text className="amenity-title entrance-title" x="1204" y="426">ENTRADA</text>
-   <text className="road-name" x="585" y="122">CALLE PRINCIPAL</text>
-   <text className="road-name" x="590" y="320">CALLE INTERIOR</text>
-  <g className="block-marker" transform="translate(640 78)"><circle r="23"/><text y="8">A</text></g>
-  <g className="block-marker" transform="translate(118 272)"><circle r="23"/><text y="8">B</text></g>
-  <g className="block-marker" transform="translate(570 245)"><circle r="23"/><text y="8">D</text></g>
-  <g className="block-marker" transform="translate(548 382)"><circle r="23"/><text y="8">E</text></g>
-  <g className="block-marker small" transform="translate(1065 478)"><circle r="21"/><text y="7">J</text></g>
-  <g className="block-marker small" transform="translate(1172 528)"><circle r="21"/><text y="7">K</text></g>
-  <g className="north" transform="translate(1330 72)"><path d="M0 34L14 0L27 34L14 27Z"/><text x="14" y="53">N</text></g>
+  {/* Outer property boundary */}
+  <path className="site-boundary" d="M105 12L1385 180L1304 386L1260 416L1220 500L1154 620L980 570L895 548L188 458L153 457L75 447L58 417L105 12Z"/>
+  {/* Access road curve on right */}
+  <path className="access-road" d="M1440 140Q1410 240 1330 420T1240 600"/>
+  {/* Futura entrada */}
+  <path className="future-entry" d="M245 31L312 39L304 110L235 101Z"/>
+  {/* Pozo */}
+  <path className="well" d="M819 106L878 114L870 185L810 176Z"/>
+  {/* Parque with accurate shape and smooth curve */}
+  <path className="park" d="M904 393L1048 417Q1068 428 1065 448Q1052 470 1008 520L980 546L910 536L895 534Z"/>
+  {/* Entrada in block K */}
+  <path className="entrance" d="M1178 427L1244 437Q1260 442 1258 457L1242 482L1226 502L1148 456Z"/>
+ </g>;
+
+ return <g className="azaleas-plan plan-labels" transform="scale(.6097560976)" aria-hidden="true">
+  {/* Futura entrada label */}
+  <g className="amenity-label future-entry-label">
+   <text x="274" y="65">Futura</text>
+   <text x="274" y="87">entrada</text>
+  </g>
+  {/* Pozo label */}
+  <text className="amenity-title well-title" x="844" y="152">pozo</text>
+  {/* Parque label */}
+  <text className="amenity-title park-title" x="965" y="475">parque</text>
+  {/* Entrada label */}
+  <text className="amenity-title entrance-title" x="1210" y="470">entrada</text>
+
+  {/* Block markers */}
+  {/* Manzana A top row */}
+  <g className="block-marker" transform="translate(641 95)"><circle r="18"/><text y="7">A</text></g>
+  {/* Manzana A right block */}
+  <g className="block-marker" transform="translate(1150 321)"><circle r="18"/><text y="7">A</text></g>
+  {/* Manzana B */}
+  <g className="block-marker" transform="translate(100 277)"><circle r="18"/><text y="7">B</text></g>
+  {/* Manzana D */}
+  <g className="block-marker" transform="translate(571 245)"><circle r="18"/><text y="7">D</text></g>
+  {/* Manzana E */}
+  <g className="block-marker" transform="translate(547 423)"><circle r="18"/><text y="7">E</text></g>
+  {/* Manzana J and K stylized letters */}
+  <text className="block-letter-jk" x="1092" y="500">J</text>
+  <text className="block-letter-jk" x="1185" y="565">K</text>
+
+  {/* North compass rose matching PDF */}
+  <g className="north" transform="translate(1410 80)">
+   <circle cx="0" cy="0" r="15"/>
+   <line x1="0" y1="-21" x2="0" y2="-15"/>
+   <line x1="0" y1="15" x2="0" y2="21"/>
+   <line x1="-21" y1="0" x2="-15" y2="0"/>
+   <line x1="15" y1="0" x2="21" y2="0"/>
+   <polygon points="-7,-10 7,-10 0,-24" transform="rotate(-15)"/>
+  </g>
  </g>;
 }

@@ -1,4 +1,5 @@
 import {env} from 'cloudflare:workers';
+import {pbkdf2} from 'node:crypto';
 
 const COOKIE='terralote_session',SESSION_SECONDS=60*60*12,encoder=new TextEncoder();
 const db=()=> (env as unknown as {DB:D1Database}).DB;
@@ -12,9 +13,8 @@ export function validPassword(value:unknown){return typeof value==='string'&&val
 
 export async function passwordRecord(password:string,saltValue?:string){
  const salt=saltValue?base64ToBytes(saltValue):crypto.getRandomValues(new Uint8Array(16));
- const material=await crypto.subtle.importKey('raw',encoder.encode(password),'PBKDF2',false,['deriveBits']);
- const bits=await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt,iterations:210_000},material,256);
- return {salt:bytesToBase64(salt),hash:bytesToBase64(new Uint8Array(bits))};
+ const bits=await new Promise<Uint8Array>((resolve,reject)=>pbkdf2(password,salt,210_000,32,'sha256',(error,key)=>error?reject(error):resolve(new Uint8Array(key))));
+ return {salt:bytesToBase64(salt),hash:bytesToBase64(bits)};
 }
 
 export async function verifyPassword(password:string,salt:string,expected:string){

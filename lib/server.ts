@@ -1,7 +1,15 @@
 import {env} from 'cloudflare:workers';
 import {sessionMember} from './auth';
 export const db=()=> (env as unknown as {DB:D1Database}).DB;
-export const bucket=()=> (env as unknown as {BUCKET:R2Bucket}).BUCKET;
+export const bucket=()=>{
+ const e=env as any;if(e.BUCKET)return e.BUCKET as R2Bucket;
+ if(e.FILES){const kv=e.FILES as KVNamespace;return {
+  async get(key:string){const val=await kv.get(key,{type:'arrayBuffer'});if(!val)return null;const meta=(await kv.getWithMetadata<{contentType?:string}>(key)).metadata;return {body:val,httpMetadata:{contentType:meta?.contentType||'image/jpeg'}} as any;},
+  async put(key:string,value:ArrayBuffer|Uint8Array,options?:{httpMetadata?:{contentType?:string}}){await kv.put(key,value,{metadata:{contentType:options?.httpMetadata?.contentType||'image/jpeg'}});},
+  async delete(keys:string|string[]){const list=Array.isArray(keys)?keys:[keys];for(const k of list)await kv.delete(k);}
+ };}
+ throw new Error('No storage configured');
+};
 export async function identity(req:Request){
  const userId=req.headers.get('oai-authenticated-user-id'),email=req.headers.get('oai-authenticated-user-email');if(!userId||!email)throw new Error('401|Inicia sesión para continuar.');
  const encodedName=req.headers.get('oai-authenticated-user-full-name'),encoded=req.headers.get('oai-authenticated-user-full-name-encoding')==='percent-encoded-utf-8';let fullName:string|null=null;

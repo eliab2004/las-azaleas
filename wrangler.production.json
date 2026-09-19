@@ -1,0 +1,27 @@
+{
+  "name": "las-azaleas",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "dist/client"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "las-azaleas-db",
+      "database_id": "61563ac5-ab66-49cc-95df-9e14f1c186d7"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "FILES",
+      "id": "84828260f9014a5bb60216bbda10b1ed"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

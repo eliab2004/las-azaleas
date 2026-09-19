@@ -13,7 +13,7 @@ export function validPassword(value:unknown){return typeof value==='string'&&val
 export async function passwordRecord(password:string,saltValue?:string){
  const salt=saltValue?base64ToBytes(saltValue):crypto.getRandomValues(new Uint8Array(16));
  const material=await crypto.subtle.importKey('raw',encoder.encode(password),{name:'PBKDF2'},false,['deriveBits']);
- const bits=await crypto.subtle.deriveBits({name:'PBKDF2',hash:{name:'SHA-256'},salt:new Uint8Array(salt),iterations:210_000},material,256);
+ const bits=await crypto.subtle.deriveBits({name:'PBKDF2',hash:{name:'SHA-256'},salt:new Uint8Array(salt),iterations:100_000},material,256);
  return {salt:bytesToBase64(salt),hash:bytesToBase64(new Uint8Array(bits))};
 }
 
